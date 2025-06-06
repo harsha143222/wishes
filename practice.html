@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 Happy Birthday Celebration</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      overflow: hidden;
+      text-align: center;
+      color: #5d1049;
+    }
+
+    #startPage, #birthdayPage {
+      display: none;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4081;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff4081, 0 0 20px #ff80ab;
+      }
+      to {
+        text-shadow: 0 0 20px #ff4081, 0 0 40px #f50057;
+      }
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1.2em;
+      border: 2px solid #ff4081;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff80ab;
+    }
+
+    .cake {
+      width: 200px;
+      height: 200px;
+      background-color: #fff3e0;
+      border-radius: 50%;
+      margin: 30px auto;
+      position: relative;
+      animation: cakeAnimation 2s ease-in-out;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .candle {
+      width: 10px;
+      height: 40px;
+      background-color: #ff4081;
+      position: absolute;
+      top: -50px;
+      left: 95px;
+      border-radius: 5px;
+    }
+
+    .flame {
+      width: 20px;
+      height: 20px;
+      background-color: #ffeb3b;
+      border-radius: 50%;
+      position: absolute;
+      top: -30px;
+      left: -5px;
+      animation: flameFlicker 1s infinite alternate;
+    }
+
+    @keyframes cakeAnimation {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes flameFlicker {
+      0% { transform: translateY(-3px); opacity: 0.8; }
+      100% { transform: translateY(3px); opacity: 1; }
+    }
+
+    .quote {
+      font-size: 1.5em;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: hsl(var(--hue), 100%, 50%);
+      animation: fall 3s linear infinite;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Start Page -->
+<div id="startPage">
+  <h1>🎉 Welcome to Your Birthday Surprise!</h1>
+  <p>Enter your name to start the celebration:</p>
+  <input type="text" id="nameInput" placeholder="Your Name" />
+  <br><br>
+  <button onclick="showBirthday()">Start</button>
+</div>
+
+<!-- Birthday Celebration Page -->
+<div id="birthdayPage">
+  <h1>🎂 Happy Birthday, <span id="userName"></span>!</h1>
+  <div class="cake">
+    <div class="candle">
+      <div class="flame"></div>
+    </div>
+  </div>
+  <div class="quote" id="quoteDisplay"></div>
+</div>
+
+<script>
+  const quotes = [
+    "Wishing you a day filled with love, laughter, and joy!",
+    "May all your dreams come true this year!",
+    "You’re not just a year older, you’re a year better!",
+    "Count your life by smiles, not tears. Count your age by friends, not years.",
+    "A birthday is the first day of another 365-day journey around the sun. Enjoy the ride!",
+    "On your birthday, may happiness wrap you like a blanket and life present you with countless blessings!",
+    "Here’s to you on your special day – you’re truly one of a kind!",
+    "Let the cake be sweet and your year even sweeter!"
+  ];
+
+  // Confetti effect
+  function startConfetti() {
+    for (let i = 0; i < 150; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      confetti.style.setProperty('--hue', Math.floor(Math.random() * 360));
+      confetti.style.top = Math.random() * -100 + 'px';
+      document.body.appendChild(confetti);
+    }
+  }
+
+  function showBirthday() {
+    const name = document.getElementById('nameInput').value;
+    if (!name) {
+      alert('Please enter your name!');
+      return;
+    }
+
+    document.getElementById('startPage').style.display = 'none';
+    document.getElementById('birthdayPage').style.display = 'block';
+
+  document.getElementById('userName').textContent = name;
+
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('quoteDisplay').textContent = quote;
+
+    startConfetti();
+  }
+
+  // Show start screen on load
+  window.onload = function () {
+    document.getElementById('startPage').style.display = 'block';
+  };
+</script>
+
+</body>
+</html>
